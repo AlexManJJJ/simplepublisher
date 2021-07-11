@@ -35,7 +35,9 @@ public class PublicationControllerMvcTest {
     @Test
     public void testCreate() throws Exception {
         Publication publication = new Publication();
-        mockMvc.perform(post("/publication")
+        publication.setBody("Body");
+        publication.setHeader("Header");
+        mockMvc.perform(post("/publications")
                 .content(mapper.writeValueAsString(publication))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
