@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.InvalidPublicationException;
 import com.example.demo.model.Publication;
 import com.example.demo.service.FacebookService;
 import com.example.demo.service.TelegramService;
@@ -10,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 
 
@@ -44,5 +46,25 @@ public class PublicationControllerTest {
         verify(vkontakteService).post(publication);
         verify(facebookService).post(publication);
         verify(telegramService).post(publication);
+    }
+
+    @Test
+    public void testSendPublicationWithoutHeader() {
+        Publication publication = new Publication();
+        publication.setBody("Body");
+        assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
+    }
+
+    @Test
+    public void testSendPublicationWithoutBody() {
+        Publication publication = new Publication();
+        publication.setHeader("Header");
+        assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
+    }
+
+    @Test
+    public void testSendPublicationWithNullPublication() {
+        Publication publication = null;
+        assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
     }
 }
