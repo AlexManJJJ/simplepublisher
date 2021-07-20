@@ -4,6 +4,7 @@ import com.example.demo.model.Publication;
 import com.example.demo.service.FacebookService;
 import com.example.demo.service.TelegramService;
 import com.example.demo.service.VkontakteService;
+import com.example.demo.validation.ValidatorUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,11 @@ public class PublicationController {
         this.telegramService = telegramService;
     }
 
-    @PostMapping("/publication")
+    @PostMapping("/publications")
     public Publication create(@RequestBody Publication publication) {
         LOGGER.info("Received in PublicationController: {}", publication);
+
+        ValidatorUtils.validatePublication(publication);
 
         vkontakteService.post(publication);
         telegramService.post(publication);
