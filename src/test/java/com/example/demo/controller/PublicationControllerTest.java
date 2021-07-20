@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 
@@ -53,6 +54,9 @@ public class PublicationControllerTest {
         Publication publication = new Publication();
         publication.setBody("Body");
         assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
+        verify(vkontakteService, never()).post(publication);
+        verify(facebookService, never()).post(publication);
+        verify(telegramService, never()).post(publication);
     }
 
     @Test
@@ -60,11 +64,17 @@ public class PublicationControllerTest {
         Publication publication = new Publication();
         publication.setHeader("Header");
         assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
+        verify(vkontakteService, never()).post(publication);
+        verify(facebookService, never()).post(publication);
+        verify(telegramService, never()).post(publication);
     }
 
     @Test
     public void testSendPublicationWithNullPublication() {
         Publication publication = null;
         assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
+        verify(vkontakteService, never()).post(publication);
+        verify(facebookService, never()).post(publication);
+        verify(telegramService, never()).post(publication);
     }
 }

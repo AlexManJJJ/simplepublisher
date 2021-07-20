@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 
 public class ValidatorUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FacebookService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ValidatorUtils.class);
 
     public static void validatePublication(Publication publication){
         if (publication == null) {
@@ -17,12 +17,12 @@ public class ValidatorUtils {
             throw new InvalidPublicationException("Publication can't be null!");
         }
 
-        if (StringUtils.isEmpty(publication.getHeader())) {
+        if (!StringUtils.hasLength(publication.getHeader())) {
             LOGGER.error("Header could not be empty! {}", publication);
             throw new InvalidPublicationException("Header could not be empty!");
         }
 
-        if (StringUtils.isEmpty(publication.getBody())) {
+        if (!StringUtils.hasLength(publication.getBody())) {
             LOGGER.error("Body could not be empty! {}", publication);
             throw new InvalidPublicationException("Body could not be empty!");
         }
