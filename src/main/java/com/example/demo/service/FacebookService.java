@@ -17,13 +17,11 @@ public class FacebookService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookService.class);
 
-    private String facebookToken;
     private FacebookClient facebookClient;
 
     @Autowired
-    public FacebookService(@Value("${facebook.token}") final String facebookToken) {
-        this.facebookToken = facebookToken;
-        this.facebookClient = new DefaultFacebookClient(facebookToken, Version.VERSION_11_0);
+    public FacebookService(FacebookClient facebookClient) {
+        this.facebookClient = facebookClient;
     }
 
     public Publication post(Publication publication) {
