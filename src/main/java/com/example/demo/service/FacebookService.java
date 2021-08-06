@@ -1,15 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Publication;
-import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
-import com.restfb.Version;
 import com.restfb.types.FacebookType;
+import com.restfb.types.GraphResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,17 +22,16 @@ public class FacebookService {
         this.facebookClient = facebookClient;
     }
 
-    public Publication post(Publication publication) {
+    public String post(Publication publication) {
         LOGGER.info("Facebook: {}", publication);
-        publishMessage(publication.getHeader()+" "+publication.getBody());
-        return publication;
+        return publishMessage(publication.getMessage());
     }
 
     private String publishMessage(String message) {
         LOGGER.info("Message publishing: {}", message);
 
-        FacebookType publishMessageResponse =
-                facebookClient.publish("me/feed", FacebookType.class, Parameter.with("message", message));
+        GraphResponse publishMessageResponse =
+                facebookClient.publish("me/feed", GraphResponse.class, Parameter.with("message", message));
 
         LOGGER.info("Published message ID: " + publishMessageResponse.getId());
         return publishMessageResponse.getId();

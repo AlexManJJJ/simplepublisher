@@ -16,8 +16,7 @@ public class TelegramServiceTest {
     @Test
     public void testFacebookPost() {
         Publication publication = new Publication();
-        publication.setHeader("Header");
-        publication.setBody("Body");
+        publication.setMessage("Message");
 
         Publication result = telegramService.post(publication);
         assertEquals(result, publication);

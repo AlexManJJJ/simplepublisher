@@ -2,31 +2,20 @@ package com.example.demo.model;
 
 public class Publication {
 
-    private String header;
-    private String body;
+    private String message;
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getHeader() {
-        return header;
+    public String getMessage() {
+        return message;
     }
 
     @Override
     public String toString() {
         return "Publication{" +
-                "header='" + header + '\'' +
-                ", body='" + body + '\'' +
-                '}';
+                "message='" + message + '\'' + '}';
     }
 
 }

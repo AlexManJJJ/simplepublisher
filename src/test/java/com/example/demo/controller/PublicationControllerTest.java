@@ -38,8 +38,7 @@ public class PublicationControllerTest {
     @Test
     public void testSendPublication() {
         Publication publication = new Publication();
-        publication.setBody("Body");
-        publication.setHeader("Header");
+        publication.setMessage("Message");
 
         Publication result = controller.create(publication);
         assertEquals(result, publication);
@@ -50,19 +49,9 @@ public class PublicationControllerTest {
     }
 
     @Test
-    public void testSendPublicationWithoutHeader() {
+    public void testSendPublicationWithoutMessage() {
         Publication publication = new Publication();
-        publication.setBody("Body");
-        assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
-        verify(vkontakteService, never()).post(publication);
-        verify(facebookService, never()).post(publication);
-        verify(telegramService, never()).post(publication);
-    }
-
-    @Test
-    public void testSendPublicationWithoutBody() {
-        Publication publication = new Publication();
-        publication.setHeader("Header");
+        publication.setMessage(null);
         assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
         verify(vkontakteService, never()).post(publication);
         verify(facebookService, never()).post(publication);

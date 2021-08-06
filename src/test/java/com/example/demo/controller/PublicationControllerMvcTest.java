@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.InvalidPublicationException;
 import com.example.demo.model.Publication;
 import com.example.demo.service.FacebookService;
 import com.example.demo.service.TelegramService;
@@ -34,10 +35,9 @@ public class PublicationControllerMvcTest {
     ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void testCreate() throws Exception {
+    public void testCreateSuccess() throws Exception {
         Publication publication = new Publication();
-        publication.setBody("Body");
-        publication.setHeader("Header");
+        publication.setMessage("Message");
         mockMvc.perform(post("/publications")
                 .content(mapper.writeValueAsString(publication))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -45,20 +45,9 @@ public class PublicationControllerMvcTest {
     }
 
     @Test
-    public void testBodyAbsence() throws Exception {
+    public void testMessageAbsence() throws Exception {
         Publication publication = new Publication();
-        publication.setHeader("Header");
-        mockMvc.perform(post("/publications")
-                .content(mapper.writeValueAsString(publication))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("Body could not be empty!"));
-    }
-
-    @Test
-    public void testHeadAbsence() throws Exception {
-        Publication publication = new Publication();
-        publication.setBody("Body");
+        publication.setMessage(null);
         mockMvc.perform(post("/publications")
                 .content(mapper.writeValueAsString(publication))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -66,13 +55,4 @@ public class PublicationControllerMvcTest {
                 .andExpect(jsonPath("$.message").value("Header could not be empty!"));
     }
 
-    @Test
-    public void testHeadAndBodyAbsence() throws Exception {
-        Publication publication = new Publication();
-        mockMvc.perform(post("/publications")
-                .content(mapper.writeValueAsString(publication))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("Header could not be empty!"));
-    }
 }

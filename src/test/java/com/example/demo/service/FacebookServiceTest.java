@@ -1,26 +1,57 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Publication;
+import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.types.FacebookType;
+import com.restfb.types.GraphResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
 public class FacebookServiceTest {
 
-    @Autowired
+    @Mock
+    private FacebookClient facebookClient;
+
+    @InjectMocks
     private FacebookService facebookService;
+
+    private final String PUBLICATION_MESSAGE = "Message";
+    private final String EXPECTED_ID = "1337_7331";
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        GraphResponse graphResponse = new GraphResponse();
+        graphResponse.setSuccess(true);
+        graphResponse.setId(EXPECTED_ID);
+        when(facebookClient.publish("me/feed",
+                GraphResponse.class,
+                Parameter.with("message", PUBLICATION_MESSAGE)))
+                .thenReturn(graphResponse);
+    }
 
     @Test
     public void testFacebookPost() {
         Publication publication = new Publication();
-        publication.setHeader("Header");
-        publication.setBody("Body");
+        publication.setMessage(PUBLICATION_MESSAGE);
 
-        Publication result = facebookService.post(publication);
-        assertEquals(result, publication);
+        String postId = facebookService.post(publication);
+        assertEquals(postId, EXPECTED_ID);
+
+        verify(facebookClient).publish(eq("me/feed"),
+                eq(GraphResponse.class),
+                eq(Parameter.with("message", PUBLICATION_MESSAGE)));
     }
+
 
 }
