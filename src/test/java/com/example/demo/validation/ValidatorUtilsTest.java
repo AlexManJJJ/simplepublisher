@@ -10,30 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ValidatorUtilsTest {
 
     @Test
-    public void testEmptyHeader() {
+    public void testEmptyMessage() {
         Publication publication = new Publication();
-        publication.setBody("Body");
-        assertThrows(InvalidPublicationException.class, () -> ValidatorUtils.validatePublication(publication));
-    }
-
-    @Test
-    public void testEmptyBody() {
-        Publication publication = new Publication();
-        publication.setHeader("Header");
-        assertThrows(InvalidPublicationException.class, () -> ValidatorUtils.validatePublication(publication));
-    }
-
-    @Test
-    public void testEmptyBodyAndHeader() {
-        Publication publication = new Publication();
+        publication.setMessage("");
         assertThrows(InvalidPublicationException.class, () -> ValidatorUtils.validatePublication(publication));
     }
 
     @Test
     public void testFilledPublication() {
         Publication publication = new Publication();
-        publication.setHeader("Header");
-        publication.setBody("Body");
+        publication.setMessage("Message");
         assertDoesNotThrow(() -> ValidatorUtils.validatePublication(publication));
     }
 
