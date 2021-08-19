@@ -43,7 +43,7 @@ public class PublicationControllerTest {
         Publication result = controller.create(publication);
         assertEquals(result, publication);
 
-        verify(vkontakteService).post(publication);
+//        verify(vkontakteService).post(publication);
         verify(facebookService).post(publication);
         verify(telegramService).post(publication);
     }
@@ -53,7 +53,7 @@ public class PublicationControllerTest {
         Publication publication = new Publication();
         publication.setMessage(null);
         assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
-        verify(vkontakteService, never()).post(publication);
+//        verify(vkontakteService, never()).post(publication);
         verify(facebookService, never()).post(publication);
         verify(telegramService, never()).post(publication);
     }
@@ -62,7 +62,7 @@ public class PublicationControllerTest {
     public void testSendPublicationWithNullPublication() {
         Publication publication = null;
         assertThrows(InvalidPublicationException.class, () -> controller.create(publication));
-        verify(vkontakteService, never()).post(publication);
+//        verify(vkontakteService, never()).post(publication);
         verify(facebookService, never()).post(publication);
         verify(telegramService, never()).post(publication);
     }

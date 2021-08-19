@@ -5,6 +5,7 @@ import com.example.demo.service.FacebookService;
 import com.example.demo.service.TelegramService;
 import com.example.demo.service.VkontakteService;
 import com.example.demo.validation.ValidatorUtils;
+import com.vk.api.sdk.exceptions.ClientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,15 @@ public class PublicationController {
 
         ValidatorUtils.validatePublication(publication);
 
-        vkontakteService.post(publication);
-        telegramService.post(publication);
-        facebookService.post(publication);
+        try {
+            vkontakteService.post(publication);
+            telegramService.post(publication);
+//            facebookService.post(publication);
+        } catch (ClientException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return publication;
     }

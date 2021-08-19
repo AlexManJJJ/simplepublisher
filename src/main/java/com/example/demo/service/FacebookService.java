@@ -3,7 +3,6 @@ package com.example.demo.service;
 import com.example.demo.model.Publication;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
-import com.restfb.types.FacebookType;
 import com.restfb.types.GraphResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FacebookService {
+public class FacebookService implements BaseService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookService.class);
 

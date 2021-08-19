@@ -6,12 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TelegramService {
+public class TelegramService implements BaseService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TelegramService.class);
 
-    public Publication post(Publication publication){
+    public String post(Publication publication){
         LOGGER.info("Telegram: {}", publication);
-        return publication;
+        return "";
     }
 }

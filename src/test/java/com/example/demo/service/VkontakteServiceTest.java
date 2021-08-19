@@ -13,13 +13,13 @@ public class VkontakteServiceTest {
     @Autowired
     private TelegramService vkontakteService;
 
-    @Test
-    public void testFacebookPost() {
-        Publication publication = new Publication();
-        publication.setMessage("Message");
-
-        Publication result = vkontakteService.post(publication);
-        assertEquals(result, publication);
-    }
+//    @Test
+//    public void testFacebookPost() {
+//        Publication publication = new Publication();
+//        publication.setMessage("Message");
+//
+//        Publication result = vkontakteService.post(publication);
+//        assertEquals(result, publication);
+//    }
 
 }
