@@ -14,12 +14,12 @@ public class VkontakteServiceTest {
     private TelegramService vkontakteService;
 
 //    @Test
-//    public void testFacebookPost() {
-//        Publication publication = new Publication();
-//        publication.setMessage("Message");
-//
-//        Publication result = vkontakteService.post(publication);
-//        assertEquals(result, publication);
-//    }
+    public void testFacebookPost() {
+        Publication publication = new Publication();
+        publication.setMessage("Message");
+
+        String publicationId = vkontakteService.post(publication);
+        assertEquals(publicationId, publication);
+    }
 
 }

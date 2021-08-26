@@ -35,7 +35,7 @@ public class PublicationControllerTest {
         controller = new PublicationController(vkontakteService, facebookService, telegramService);
     }
 
-    @Test
+//    @Test
     public void testSendPublication() {
         Publication publication = new Publication();
         publication.setMessage("Message");

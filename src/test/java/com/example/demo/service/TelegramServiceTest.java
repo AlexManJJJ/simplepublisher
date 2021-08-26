@@ -14,12 +14,12 @@ public class TelegramServiceTest {
     private TelegramService telegramService;
 
 //    @Test
-//    public void testFacebookPost() {
-//        Publication publication = new Publication();
-//        publication.setMessage("Message");
-//
-//        Publication result = telegramService.post(publication);
-//        assertEquals(result, publication);
-//    }
+    public void testFacebookPost() {
+        Publication publication = new Publication();
+        publication.setMessage("Message");
+
+        String publicationId = telegramService.post(publication);
+        assertEquals(publicationId, publication);
+    }
 
 }
