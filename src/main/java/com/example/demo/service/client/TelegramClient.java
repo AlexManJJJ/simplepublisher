@@ -17,10 +17,10 @@ public class TelegramClient {
         this.restTemplate = restTemplate;
     }
 
-    public int post(String message) {
+    public String post(String message) {
         TelegramResponse response =
                 restTemplate.postForEntity(POST_URL + message, null, TelegramResponse.class).getBody();
         LOGGER.info("Received response from telegram: {}", response);
-        return response.getResult().getMessageId();
+        return String.valueOf(response.getResult().getMessageId());
     }
 }

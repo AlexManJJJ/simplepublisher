@@ -3,7 +3,6 @@ package com.example.demo.service;
 import com.example.demo.model.Publication;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
-import com.restfb.types.FacebookType;
 import com.restfb.types.GraphResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -11,6 +11,7 @@ import com.vk.api.sdk.exceptions.ClientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,14 +52,10 @@ public class PublicationController {
 
         ValidatorUtils.validatePublication(publication);
 
-        try {
-            vkontakteService.post(publication);
-            telegramService.post(publication);
-//            facebookService.post(publication);
-        } catch (ClientException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (CollectionUtils.isEmpty(publication.getDestinations())) {
+            postToAllPlatforms(publication);
+        } else {
+            postForFilteredPlatforms(publication);
         }
 
         return publication;

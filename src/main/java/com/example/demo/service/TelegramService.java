@@ -20,8 +20,8 @@ public class TelegramService implements BaseService {
     public String post(Publication publication){
         LOGGER.info("Sending publication: {}", publication);
 
-        int postId = telegramClient.post(publication.getMessage());
+        String postId = telegramClient.post(publication.getMessage());
 
-        return String.valueOf(postId);
+        return postId;
     }
 }

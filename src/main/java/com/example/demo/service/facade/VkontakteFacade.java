@@ -17,12 +17,12 @@ public class VkontakteFacade {
         this.groupId = groupId;
     }
 
-    public Integer post(String message) throws Exception {
+    public String post(String message) throws Exception {
         return vkApiClient.wall()
                 .post(vkUser)
                 .ownerId(groupId)
                 .message(message)
                 .execute()
-                .getPostId();
+                .getPostId().toString();
     }
 }
